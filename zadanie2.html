@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Zadanie z formularzem rejestracyjnym</title>
+  </head>
+  <body>
+    <h1>Rejestracja</h1>
+    <form action="#" method="POST">
+      <p>
+        <label for="imie">Imię:</label><br>
+        <input type="text" id="imie" name="imie" required>
+      </p>
+      <p>
+        <label for="nazwisko">Nazwisko:</label><br>
+        <input type="text" id="nazwisko" name="nazwisko" required>
+      </p>
+      <p>
+        <label for="miasto">Miasto:</label><br>
+        <input type="text" id="miasto" name="miasto" required>
+      </p>
+      <p>
+        <label for="ulica">Ulica:</label><br>
+        <input type="text" id="ulica" name="ulica" required>
+      </p>
+      <p>
+        <label for="wojewodztwo">Województwo:</label><br>
+        <select id="wojewodztwo" name="wojewodztwo">
+          <option value="">Wybierz Województwo</option>
+          <option value="dolnoslaskie">Dolnośląskie</option>
+          <option value="kujawsko-pomorskie">Kujawsko-Pomorskie</option>
+          <option value="lubelskie">Lubelskie</option>
+          <option value="lubuskie">Lubuskie</option>
+          <option value="lodzkie">Łódzkie</option>
+          <option value="malopolskie">Małopolskie</option>
+          <option value="mazowieckie">Mazowieckie</option>
+          <option value="opolskie">Opolskie</option>
+          <option value="podkarpackie">Podkarpackie</option>
+          <option value="podlaskie">Podlaskie</option>
+          <option value="pomorskie">Pomorskie</option>
+          <option value="slaskie">Śląskie</option>
+          <option value="swietokrzyskie">Świętokrzyskie</option>
+          <option value="warminsko-mazurskie">Warmińsko-mazurskie</option>
+          <option value="wielkopolskie">Wielkopolskie</option>
+          <option value="zachodniopomorskie">Zachodniopomorskie</option>
+        </select>
+      </p>
+      <p>
+        <label for="data_urodzenia">Data urodzenia:</label><br>
+        <input type="date" id="data_urodzenia" name="data_urodzenia" required>
+      </p>
+      <p>
+        <label for="telefon">Numer telefonu:</label><br>
+        <input type="tel" id="telefon" name="telefon" required>
+      </p>
+      <p>
+        <label for="haslo">Hasło:</label><br>
+        <input type="password" id="haslo" name="haslo" required>
+      </p>
+      <p>
+        <label for="prawo_jazdy">Prawo jazdy:</label><br>
+        
+        <input type="radio" id="prawo_jazdy_tak" name="prawo_jazdy">
+        <label for="prawo_jazdy_tak">Posiadam</label><br>
+
+        <input type="radio" id="prawo_jazdy_nie" name="prawo_jazdy" checked>
+        <label for="prawo_jazdy_nie">Nie posiadam</label>
+      </p>
+      <p>
+        <label for="uwagi">Dodatkowe uwagi:</label><br>
+        <textarea id="uwagi" name="uwagi" rows="4" cols="30" maxlength="500"></textarea>
+      </p>
+      <p>
+        <input type="submit" value="Wyślij formularz"><br>
+        <input type="reset" value="Wyczyść odpowiedzi">
+      </p>
+    </form>
+  </body>
+</html>
