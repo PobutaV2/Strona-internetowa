@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria Zdjęć (Motyw Ciemny)</title>
+    <style>
+        /* Globalny reset stylów */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Twój sprawdzony ciemny motyw z body */
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.5;
+            padding: 50px;
+            color: white;
+            background-color: rgb(45,45,45);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+
+        /* Kontener na całą galerię */
+        .galeria-kontener {
+            display: flex;
+            flex-wrap: wrap; /* Magiczna linijka: pozwala elementom przechodzić do nowego wiersza! */
+            gap: 30px;      /* Stały odstęp między kafelkami ze zdjęciami */
+            justify-content: center; /* Środkuje kafelki, jeśli w ostatnim wierszu będzie ich mniej niż 3 */
+        }
+
+        /* Pojedynczy kafelek (pudełko na zdjęcie + opis) */
+        .foto-kafelek {
+            /* Obliczamy szerokość: chcemy 3 zdjęcia, więc każde dostaje około 33.33% 
+               Odejmujemy 20px, aby kafelki idealnie mieściły się obok siebie uwzględniając 'gap' */
+            width: 30%;
+            flex: none;
+            
+            
+            background-color: rgb(65, 65, 65); /* Lekko jaśniejsze szare tło kafelka */
+            border: 2px solid black;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column; /* Układa zdjęcie i tekst pionowo (jedno pod drugim) */
+            align-items: center;    /* Wyśrodkowuje zawartość kafelka w poziomie */
+        }
+
+        /* Styl samego obrazka */
+        .foto-kafelek img {
+            width: 100%;           /* Zdjęcie zawsze dopasuje się do szerokości kafelka */
+            height: 200px;         /* Sztywna wysokość, aby wszystkie zdjęcia na stronie były równe */
+            object-fit: cover;     /* Bardzo ważna funkcja: przycina zdjęcie do podanej wysokości bez rozciągania i zniekształceń */
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        /* Opis pod zdjęciem */
+        .foto-kafelek p {
+            font-size: 1.1rem;
+            color: #ddd;
+            text-align: center;     /* Środkuje podpis pod zdjęciem */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Moja Galeria Zdjęć</h1>
+
+    <!-- Jeden wielki kontener Flexbox na wszystkie zdjęcia -->
+    <div class="galeria-kontener">
+
+        <!-- Zdjęcie 1 -->
+        <div class="foto-kafelek">
+            <img src="pies1.jpg" alt="pies 1">
+            <p>Pies 1</p>
+        </div>
+
+        <!-- Zdjęcie 2 -->
+        <div class="foto-kafelek">
+            <img src="pies2.jpg" alt="pies 2">
+            <p>Pies 2</p>
+        </div>
+
+        <!-- Zdjęcie 3 -->
+        <div class="foto-kafelek">
+            <img src="pies3.jpg" alt="pies 3">
+            <p>Pies 3</p>
+        </div>
+
+        <!-- Zdjęcie 4 (Automatycznie wskoczy na początek drugiego wiersza!) -->
+        <div class="foto-kafelek">
+            <img src="pies4.jpg" alt="pies 4">
+            <p>Pies 4</p>
+        </div>
+
+        <!-- Zdjęcie 5 -->
+        <div class="foto-kafelek">
+            <img src="pies5.jpg" alt="pies 5">
+            <p>Pies 5</p>
+        </div>
+
+        <!-- Zdjęcie 6 -->
+        <div class="foto-kafelek">
+            <img src="pies6.jpg" alt="pies 6">
+            <p>Pies 6</p>
+        </div>
+        
+        <div class="foto-kafelek">
+            <img src="pies7.jpg" alt="pies 7">
+            <p>Pies 7</p>
+        </div>
+        
+        <div class="foto-kafelek">
+            <img src="pies8.jpg" alt="pies 8">
+            <p>Pies 8</p>
+        </div>
+        
+      <div class="foto-kafelek">
+            <img src="pies9.jpg" alt="pies 9">
+            <p>Pies 9</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
