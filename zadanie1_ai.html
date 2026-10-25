@@ -3,63 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Układ kolumn 1-2-3-1</title>
+    <title>Układ 1-2-3-1 (Wszystko po równo)</title>
     <style>
-        /* Podstawowe resetowanie i ostylowanie strony */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 20px;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: #f7fafc;
+            color: #2d3748;
         }
 
-        /* 1. GŁÓWNY KONTENER SIATKI (GRID) */
+        /* BAZA: Siatka 6-kolumnowa pozwala na idealne równe podziały przez 2 i przez 3 */
         .grid-container {
             display: grid;
-            /* Tworzymy 3 kolumny o równej szerokości */
-            grid-template-columns: repeat(3, 1fr); 
-            /* Odstęp między kolumnami i wierszami */
-            gap: 20px; 
+            grid-template-columns: repeat(6, 1fr); 
+            gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Wspólne style dla bloków tekstu, aby były widoczne */
         .box {
             background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #4a5568;
         }
 
-        /* 2. ZARZĄDZANIE UKŁADEM KOLUMN */
-
-        /* Sekcja 1 (1 kolumna): zajmuje wszystkie 3 kolumny siatki */
+        /* Wiersz 1 i 4: Pełna szerokość */
         .full-width {
-            grid-column: span 3;
-            background-color: #e2e8f0;
+            grid-column: span 6; /* 6 z 6 = 100% */
+            border-color: #3182ce;
         }
 
-        /* Sekcja 2 (2 kolumny): każda zajmuje 1.5 miejsca? 
-           W siatce 3-kolumnowej rozciągamy pierwszą na 2 kolumny, a druga zajmuje 1 */
-        .half-width-1 {
-            grid-column: span 2;
-        }
-        .half-width-2 {
-            grid-column: span 1;
+        /* Wiersz 2: Dwie równe kolumny (po 50%) */
+        .half-width {
+            grid-column: span 3; /* 3 z 6 = dokładnie 50% */
+            border-color: #e53e3e;
         }
 
-        /* Sekcja 3 (3 kolumny): domyślnie każdy box zajmuje 1 kolumnę (span 1) */
+        /* Wiersz 3: Trzy równe kolumny (po 33.3%) */
         .third-width {
-            /* Nie musimy nic dopisywać, automatycznie wpadną w układ 3-kolumnowy */
-            border-top: 4px solid #3182ce;
+            grid-column: span 2; /* 2 z 6 = dokładnie 1/3 szerokości */
+            border-color: #38a169;
         }
 
-        /* Nagłówki dla jasności */
-        h2 {
-            margin-top: 0;
-            color: #2d3748;
+        /* RESPONSYWNOŚĆ */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .box {
+                grid-column: span 1 !important;
+            }
         }
     </style>
 </head>
@@ -67,40 +63,40 @@
 
     <div class="grid-container">
 
-        <!-- WIERSZ 1: Jeden blok na całą szerokość -->
+        <!-- WIERSZ 1: Jedna kolumna -->
         <div class="box full-width">
-            <h2>Wiersz 1: Pełna szerokość (1 kolumna)</h2>
-            <p>To jest sekcja o pełnej szerokości. Rozciąga się od lewej do prawej krawędzi kontenera. Idealne miejsce na nagłówek strony, baner (hero element) lub ważny komunikat wstępny.</p>
+            <h2>Wiersz 1: Pełna szerokość</h2>
+            <p>Zajmuje pełną przestrzeń siatki (6 z 6 kolumn).</p>
         </div>
 
-        <!-- WIERSZ 2: Podział na 2 kolumny -->
-        <div class="box half-width-1">
-            <h2>Wiersz 2: Kolumna lewa (szersza)</h2>
-            <p>W tym wierszu mamy podział na dwie kolumny. Ta kolumna jest celowo szersza (zajmuje 2/3 szerokości), co świetnie sprawdza się jako główna przestrzeń na artykuł lub treść właściwą.</p>
+        <!-- WIERSZ 2: Dwie kolumny (TERAZ IDEALNIE PO RÓWNO) -->
+        <div class="box half-width">
+            <h2>Wiersz 2: Lewa kolumna (50%)</h2>
+            <p>Dzięki zastosowaniu siatki 6-kolumnowej, ten blok ma szerokość dokładnie połowy strony.</p>
         </div>
-        <div class="box half-width-2">
-            <h2>Wiersz 2: Kolumna prawa</h2>
-            <p>Ta kolumna zajmuje pozostałą 1/3 szerokości. Idealnie nadaje się na panel boczny (sidebar), linki lub reklamy.</p>
-        </div>
-
-        <!-- WIERSZ 3: Podział na 3 równe kolumny -->
-        <div class="box third-width">
-            <h2>Wiersz 3: Kolumna A</h2>
-            <p>Pierwsza z trzech równych kolumn. CSS Grid automatycznie układa je obok siebie.</p>
-        </div>
-        <div class="box third-width">
-            <h2>Wiersz 3: Kolumna B</h2>
-            <p>Druga kolumna. Taki układ 3-kolumnowy jest bardzo popularny przy prezentacji cech produktu lub usług.</p>
-        </div>
-        <div class="box third-width">
-            <h2>Wiersz 3: Kolumna C</h2>
-            <p>Trzecia kolumna. Wszystkie trzy mają dokładnie taką samą szerokość dzięki jednostce "fr".</p>
+        <div class="box half-width">
+            <h2>Wiersz 2: Prawa kolumna (50%)</h2>
+            <p>Druga połowa strony, identyczna pod względem szerokości.</p>
         </div>
 
-        <!-- WIERSZ 4: Ponownie jeden blok na całą szerokość -->
+        <!-- WIERSZ 3: Trzy kolumny -->
+        <div class="box third-width">
+            <h2>Wiersz 3: Kolumna A (1/3)</h2>
+            <p>Każda z tych trzech kolumn zajmuje teraz po 2 oczka siatki bazowej.</p>
+        </div>
+        <div class="box third-width">
+            <h2>Wiersz 3: Kolumna B (1/3)</h2>
+            <p>Środkowa kolumna.</p>
+        </div>
+        <div class="box third-width">
+            <h2>Wiersz 3: Kolumna C (1/3)</h2>
+            <p>Prawa kolumna.</p>
+        </div>
+
+        <!-- WIERSZ 4: Jedna kolumna -->
         <div class="box full-width">
-            <h2>Wiersz 4: Ponownie pełna szerokość (1 kolumna)</h2>
-            <p>Układ zamykamy ponownym podziałem na jedną kolumnę. To doskonałe miejsce na podsumowanie, sekcję kontaktową lub stopkę strony (footer).</p>
+            <h2>Wiersz 4: Pełna szerokość</h2>
+            <p>Zamykamy układ blokiem na 100% szerokości.</p>
         </div>
 
     </div>
