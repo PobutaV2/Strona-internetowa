@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Układ 2-1-4-3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f7fafc;
+            color: #2d3748;
+        }
+
+        /* BAZA: Tworzymy siatkę o 4 równych kolumnach */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .box {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #4a5568;
+        }
+
+        /* --- WIERSZ 1: Podział na 2 równe kolumny (po 50% każda) --- */
+        .w1-half {
+            grid-column: span 2; /* 2 z 4 kolumn = połowa */
+            border-color: #3182ce;
+        }
+
+        /* --- WIERSZ 2: Pełna szerokość (1 kolumna) --- */
+        .w2-full {
+            grid-column: span 4; /* 4 z 4 kolumn = całość */
+            border-color: #e53e3e;
+        }
+
+        /* --- WIERSZ 3: Podział na 4 równe kolumny (po 25% każda) --- */
+        .w3-quarter {
+            grid-column: span 1; /* 1 z 4 kolumn = jedna ćwiartka */
+            border-color: #38a169;
+        }
+
+        /* --- WIERSZ 4: Specjalny podział na 3 kolumny --- */
+        .w4-big {
+            grid-column: span 2; /* Ta kolumna zajmuje połowę strony (50%) */
+            border-color: #d69e2e;
+        }
+        .w4-small {
+            grid-column: span 1; /* Te kolumny zajmują po 25% */
+            border-color: #805ad5;
+        }
+
+        /* RESPONSYWNOŚĆ: Na ekranach poniżej 768px wszystko wskakuje w 1 kolumnę */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .box {
+                grid-column: span 1 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-container">
+
+        <!-- WIERSZ 1: Dwie kolumny (po równo) -->
+        <div class="box w1-half">
+            <h2>Wiersz 1: Kolumna 1/2</h2>
+            <p>Pierwsza z dwóch równych kolumn w tym wierszu. Zajmuje dokładnie 50% szerokości ekranu.</p>
+        </div>
+        <div class="box w1-half">
+            <h2>Wiersz 1: Kolumna 2/2</h2>
+            <p>Druga z dwóch równych kolumn. CSS Grid dzieli przestrzeń idealnie po połowie.</p>
+        </div>
+
+        <!-- WIERSZ 2: Jedna kolumna -->
+        <div class="box w2-full">
+            <h2>Wiersz 2: Pełna szerokość</h2>
+            <p>Ten blok rozciąga się na całą dostępną szerokość strony (zajmuje wszystkie 4 kolumny siatki bazowej).</p>
+        </div>
+
+        <!-- WIERSZ 3: Cztery kolumny (po równo) -->
+        <div class="box w3-quarter">
+            <h2>Wiersz 3: Ćwiartka 1</h2>
+            <p>Każda z tych czterech kolumn zajmuje dokładnie 25% szerokości kontenera.</p>
+        </div>
+        <div class="box w3-quarter">
+            <h2>Wiersz 3: Ćwiartka 2</h2>
+            <p>Druga ćwiartka.</p>
+        </div>
+        <div class="box w3-quarter">
+            <h2>Wiersz 3: Ćwiartka 3</h2>
+            <p>Trzecia ćwiartka.</p>
+        </div>
+        <div class="box w3-quarter">
+            <h2>Wiersz 3: Ćwiartka 4</h2>
+            <p>Czwarta ćwiartka.</p>
+        </div>
+
+        <!-- WIERSZ 4: Trzy kolumny (asymetryczne: 50% | 25% | 25%) -->
+        <div class="box w4-big">
+            <h2>Wiersz 4: Główna (50%)</h2>
+            <p>Ta kolumna jest wyjątkowa – zgodnie z Twoim życzeniem zajmuje dokładnie połowę (50%) szerokości całej strony.</p>
+        </div>
+        <div class="box w4-small">
+            <h2>Wiersz 4: Bocznica 1 (25%)</h2>
+            <p>Zajmuje 1/4 szerokości.</p>
+        </div>
+        <div class="box w4-small">
+            <h2>Wiersz 4: Bocznica 2 (25%)</h2>
+            <p>Również zajmuje 1/4 szerokości strony.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
