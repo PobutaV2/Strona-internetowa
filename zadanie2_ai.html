@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz Rejestracyjny</title>
+    <style>
+        /* 1. RESET I PODSTAWOWE STYLOWANIE */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* 2. KONTENER FORMULARZA */
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 700px;
+            padding: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 1.8rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        /* 3. SIATKA DLA POL FORMULARZA (CSS GRID) */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* 4. POJEDYNCZA GRUPA POLA (LABEL + INPUT) */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Pola na pełną szerokość */
+        .full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        /* 5. STYLOWANIE ELEMENTÓW INPUT, SELECT, TEXTAREA */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #2d3748;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: #f8fafc;
+        }
+
+        /* Stan Focus (kliknięcie w pole) */
+        input:focus, select:focus, textarea:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+            background-color: #ffffff;
+        }
+
+        /* Specjalne wymiary dla uwag dodatkowych */
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        /* 6. PRZYCISK SUBMIT */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: opacity 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:hover {
+            opacity: 0.95;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* 7. RESPONSYWNOŚĆ (RWD) */
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 25px 20px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr; /* Na telefonie wszystkie pola jedno pod drugim */
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Utwórz konto</h2>
+        <p class="subtitle">Wypełnij poniższe dane, aby się zarejestrować</p>
+
+        <form>
+            <div class="form-grid">
+                
+                <!-- Imię -->
+                <div class="form-group">
+                    <label for="first-name">Imię</label>
+                    <input type="text" id="first-name" placeholder="np. Jan" required>
+                </div>
+
+                <!-- Nazwisko -->
+                <div class="form-group">
+                    <label for="last-name">Nazwisko</label>
+                    <input type="text" id="last-name" placeholder="np. Kowalski" required>
+                </div>
+
+                <!-- Data urodzenia -->
+                <div class="form-group">
+                    <label for="birth-date">Data urodzenia</label>
+                    <input type="date" id="birth-date" required>
+                </div>
+
+                <!-- Numer telefonu -->
+                <div class="form-group">
+                    <label for="phone">Numer telefonu</label>
+                    <input type="tel" id="phone" placeholder="np. 123456789" required>
+                </div>
+
+                <!-- Ulica i nr domu -->
+                <div class="form-group full-width">
+                    <label for="street">Ulica i numer</label>
+                    <input type="text" id="street" placeholder="np. Kwiatowa 5 m. 12" required>
+                </div>
+
+                <!-- Miasto -->
+                <div class="form-group">
+                    <label for="city">Miasto</label>
+                    <input type="text" id="city" placeholder="np. Warszawa" required>
+                </div>
+
+                <!-- Województwo -->
+                <div class="form-group">
+                    <label for="voivodeship">Województwo</label>
+                    <select id="voivodeship" required>
+                        <option value="" disabled selected>Wybierz...</option>
+                        <option value="dolnoslaskie">Dolnośląskie</option>
+                        <option value="kujawsko-pomorskie">Kujawsko-pomorskie</option>
+                        <option value="lubelskie">Lubelskie</option>
+                        <option value="lubuskie">Lubuskie</option>
+                        <option value="lodzkie">Łódzkie</option>
+                        <option value="malopolskie">Małopolskie</option>
+                        <option value="mazowieckie">Mazowieckie</option>
+                        <option value="opolskie">Opolskie</option>
+                        <option value="podkarpackie">Podkarpackie</option>
+                        <option value="podlaskie">Podlaskie</option>
+                        <option value="pomorskie">Pomorskie</option>
+                        <option value="slaskie">Śląskie</option>
+                        <option value="swietokrzyskie">Świętokrzyskie</option>
+                        <option value="warminsko-mazurskie">Warmińsko-mazurskie</option>
+                        <option value="wielkopolskie">Wielkopolskie</option>
+                        <option value="zachodniopomorskie">Zachodniopomorskie</option>
+                    </select>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group full-width">
+                    <label for="email">Adres E-mail</label>
+                    <input type="email" id="email" placeholder="jan.kowalski@example.com" required>
+                </div>
+
+                <!-- Hasło -->
+                <div class="form-group full-width">
+                    <label for="password">Hasło</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+
+                <!-- Prawo jazdy -->
+                <div class="form-group full-width">
+                    <label for="driver-license">Czy posiadasz prawo jazdy?</label>
+                    <select id="driver-license" required>
+                        <option value="" disabled selected>Wybierz odpowiedź...</option>
+                        <option value="yes">Tak</option>
+                        <option value="no">Nie</option>
+                    </select>
+                </div>
+
+                <!-- Dodatkowe uwagi -->
+                <div class="form-group full-width">
+                    <label for="notes">Dodatkowe uwagi</label>
+                    <textarea id="notes" placeholder="Wpisz tutaj swoje uwagi lub dodatkowe informacje..."></textarea>
+                </div>
+
+                <!-- Przycisk -->
+                <div class="form-group full-width">
+                    <button type="submit" class="submit-btn">Zarejestruj się</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
