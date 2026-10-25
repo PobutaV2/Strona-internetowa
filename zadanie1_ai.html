@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Układ kolumn 1-2-3-1</title>
+    <style>
+        /* Podstawowe resetowanie i ostylowanie strony */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* 1. GŁÓWNY KONTENER SIATKI (GRID) */
+        .grid-container {
+            display: grid;
+            /* Tworzymy 3 kolumny o równej szerokości */
+            grid-template-columns: repeat(3, 1fr); 
+            /* Odstęp między kolumnami i wierszami */
+            gap: 20px; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Wspólne style dla bloków tekstu, aby były widoczne */
+        .box {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 2. ZARZĄDZANIE UKŁADEM KOLUMN */
+
+        /* Sekcja 1 (1 kolumna): zajmuje wszystkie 3 kolumny siatki */
+        .full-width {
+            grid-column: span 3;
+            background-color: #e2e8f0;
+        }
+
+        /* Sekcja 2 (2 kolumny): każda zajmuje 1.5 miejsca? 
+           W siatce 3-kolumnowej rozciągamy pierwszą na 2 kolumny, a druga zajmuje 1 */
+        .half-width-1 {
+            grid-column: span 2;
+        }
+        .half-width-2 {
+            grid-column: span 1;
+        }
+
+        /* Sekcja 3 (3 kolumny): domyślnie każdy box zajmuje 1 kolumnę (span 1) */
+        .third-width {
+            /* Nie musimy nic dopisywać, automatycznie wpadną w układ 3-kolumnowy */
+            border-top: 4px solid #3182ce;
+        }
+
+        /* Nagłówki dla jasności */
+        h2 {
+            margin-top: 0;
+            color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-container">
+
+        <!-- WIERSZ 1: Jeden blok na całą szerokość -->
+        <div class="box full-width">
+            <h2>Wiersz 1: Pełna szerokość (1 kolumna)</h2>
+            <p>To jest sekcja o pełnej szerokości. Rozciąga się od lewej do prawej krawędzi kontenera. Idealne miejsce na nagłówek strony, baner (hero element) lub ważny komunikat wstępny.</p>
+        </div>
+
+        <!-- WIERSZ 2: Podział na 2 kolumny -->
+        <div class="box half-width-1">
+            <h2>Wiersz 2: Kolumna lewa (szersza)</h2>
+            <p>W tym wierszu mamy podział na dwie kolumny. Ta kolumna jest celowo szersza (zajmuje 2/3 szerokości), co świetnie sprawdza się jako główna przestrzeń na artykuł lub treść właściwą.</p>
+        </div>
+        <div class="box half-width-2">
+            <h2>Wiersz 2: Kolumna prawa</h2>
+            <p>Ta kolumna zajmuje pozostałą 1/3 szerokości. Idealnie nadaje się na panel boczny (sidebar), linki lub reklamy.</p>
+        </div>
+
+        <!-- WIERSZ 3: Podział na 3 równe kolumny -->
+        <div class="box third-width">
+            <h2>Wiersz 3: Kolumna A</h2>
+            <p>Pierwsza z trzech równych kolumn. CSS Grid automatycznie układa je obok siebie.</p>
+        </div>
+        <div class="box third-width">
+            <h2>Wiersz 3: Kolumna B</h2>
+            <p>Druga kolumna. Taki układ 3-kolumnowy jest bardzo popularny przy prezentacji cech produktu lub usług.</p>
+        </div>
+        <div class="box third-width">
+            <h2>Wiersz 3: Kolumna C</h2>
+            <p>Trzecia kolumna. Wszystkie trzy mają dokładnie taką samą szerokość dzięki jednostce "fr".</p>
+        </div>
+
+        <!-- WIERSZ 4: Ponownie jeden blok na całą szerokość -->
+        <div class="box full-width">
+            <h2>Wiersz 4: Ponownie pełna szerokość (1 kolumna)</h2>
+            <p>Układ zamykamy ponownym podziałem na jedną kolumnę. To doskonałe miejsce na podsumowanie, sekcję kontaktową lub stopkę strony (footer).</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
