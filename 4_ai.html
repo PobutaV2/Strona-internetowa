@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prosty Kalkulator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #22252d;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            width: 300px;
+        }
+
+        .display {
+            background-color: #2a2d36;
+            color: #ffffff;
+            font-size: 2rem;
+            text-align: right;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            word-wrap: break-word;
+            word-break: break-all;
+            min-height: 40px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 1.25rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #292d36;
+            color: #ffffff;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #373c47;
+        }
+
+        button.operator {
+            color: #eb6666;
+            font-weight: bold;
+        }
+
+        button.clear {
+            color: #26ffe6;
+            font-weight: bold;
+        }
+
+        button.equal {
+            background-color: #eb6666;
+            color: white;
+            grid-column: span 2;
+        }
+
+        button.equal:hover {
+            background-color: #f08080;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <!-- Ekran wyświetlający ciąg znaków -->
+        <div id="display" class="display">0</div>
+        
+        <!-- Przyciski kalkulatora -->
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button class="operator" onclick="appendOperator('/')">/</button>
+            <button class="operator" onclick="appendOperator('*')">*</button>
+            <button class="operator" onclick="appendOperator('-')">-</button>
+            
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button class="operator" onclick="appendOperator('+')">+</button>
+            
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button onclick="appendNumber('1')">1</button>
+            
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="appendDot()">.</button>
+            
+            <button class="equal" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        let expression = '';
+
+        // Aktualizacja widoku na ekranie
+        function updateDisplay() {
+            display.innerText = expression || '0';
+        }
+
+        // Dodawanie cyfry
+        function appendNumber(num) {
+            // Zapobiega wpisaniu wielu zer na początku liczby
+            if (expression === '0' && num === '0') return;
+            
+            if (expression === '0') {
+                expression = num;
+            } else {
+                expression += num;
+            }
+            updateDisplay();
+        }
+
+        // Dodawanie operatora (+, -, *, /)
+        function appendOperator(op) {
+            if (expression === '') {
+                // Pozwalamy na minus na początku dla liczb ujemnych
+                if (op === '-') {
+                    expression = op;
+                    updateDisplay();
+                }
+                return;
+            }
+
+            const lastChar = expression.slice(-1);
+            // Walidacja: nie można postawić dwóch operatorów obok siebie
+            if (['+', '-', '*', '/'].includes(lastChar)) {
+                // Opcjonalnie: podmieniamy ostatni operator na nowy
+                expression = expression.slice(0, -1) + op;
+            } else if (lastChar === '.') {
+                // Nie pozwalamy postawić operatora bezpośrednio po kropce
+                return;
+            } else {
+                expression += op;
+            }
+            updateDisplay();
+        }
+
+        // Dodawanie kropki dziesiętnej
+        function appendDot() {
+            // Jeśli wyrażenie jest puste, kropka zamienia się w "0."
+            if (expression === '') {
+                expression = '0.';
+                updateDisplay();
+                return;
+            }
+
+            const lastChar = expression.slice(-1);
+            // Jeśli ostatni znak to operator, dodajemy "0."
+            if (['+', '-', '*', '/'].includes(lastChar)) {
+                expression += '0.';
+                updateDisplay();
+                return;
+            }
+
+            // Walidacja: jedna liczba nie może mieć więcej niż jednej kropki
+            // Rozbijamy całe wyrażenie na tablicę liczb przy użyciu operatorów jako separatorów
+            const parts = expression.split(/[\+\-\*\/]/);
+            const currentNumber = parts[parts.length - 1];
+
+            if (!currentNumber.includes('.')) {
+                expression += '.';
+                updateDisplay();
+            }
+        }
+
+        // Czyszczenie ekranu (Przycisk C)
+        function clearDisplay() {
+            expression = '';
+            updateDisplay();
+        }
+
+        // Obliczanie wyniku (Przycisk = )
+        function calculate() {
+            if (expression === '') return;
+
+            const lastChar = expression.slice(-1);
+            // Jeśli wyrażenie kończy się operatorem lub kropką, ucinamy go przed kalkulacją
+            if (['+', '-', '*', '/', '.'].includes(lastChar)) {
+                expression = expression.slice(0, -1);
+            }
+
+            // Walidacja: Dzielenie przez zero
+            // Szukamy w stringu zapisu "/0" po którym nie ma kropki i kolejnej cyfry (np. /0.5 jest dozwolone)
+            if (/\/0(?!\d|\.)/.test(expression)) {
+                display.innerText = "Błąd: Dzielenie przez 0";
+                expression = '';
+                return;
+            }
+
+            try {
+                // Bezpieczne wywołanie Function zamiast eval do obliczenia ciągu znaków
+                const result = new Function(`return ${expression}`)();
+                
+                // Zaokrąglamy wynik, aby uniknąć problemów z precyzją float (np. 0.1 + 0.2)
+                expression = Number(Math.round(result + 'e12') + 'e-12').toString();
+                updateDisplay();
+            } catch (error) {
+                display.innerText = "Błąd zapisu";
+                expression = '';
+            }
+        }
+    </script>
+</body>
+</html>
