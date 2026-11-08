@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator (Mój)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.5;
+            padding: 50px;
+            color: white;
+            background-color: rgb(45,45,45);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+
+        .kalkulator {
+            width: 350px;
+            background-color: rgb(65, 65, 65);
+            border: 2px solid black;
+            border-radius: 8px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #display {
+            width: 100%;
+            height: 60px;
+            background-color: rgb(45, 45, 45);
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 1.5rem;
+            text-align: right;
+            padding: 10px 15px;
+            border: 2px solid black;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+        }
+
+        button {
+            font-family: Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ddd;
+            background-color: rgb(55, 55, 55);
+            padding: 15px;
+            cursor: pointer;
+            border: 1px solid black;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        button:hover {
+            background-color: rgb(80, 80, 80);
+            color: white;
+        }
+
+        button.clear {
+            background-color: rgb(120, 45, 45);
+            color: white;
+        }
+        
+        button.clear:hover {
+            background-color: rgb(150, 55, 55);
+        }
+
+        button.operator {
+            background-color: rgb(25, 25, 95);
+        }
+
+        button.operator:hover {
+            background-color: rgb(50, 45, 120);
+            color: white;
+        }
+
+        button.rownasie {
+            background-color: rgb(45, 95, 45);
+            color: white;
+        }
+
+        button.rownasie:hover {
+            background-color: rgb(55, 120, 55);
+        }
+
+        .pustepole {
+            border: 1px transparent;
+            border-radius: 4px;
+            background-color: rgba(65, 65, 65);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Kalkulator</h1>
+
+    <div class="kalkulator">
+        <input type="text" id="display" readonly placeholder="0">
+        
+        <div class="buttons">
+            <button class="clear" onclick="Wyczysc()">C</button>
+            <div class="pustepole"></div>
+            <div class="pustepole"></div>
+            <div class="pustepole"></div>
+            
+            <button onclick="Liczba('7')">7</button>
+            <button onclick="Liczba('8')">8</button>
+            <button onclick="Liczba('9')">9</button>
+            <button onclick="Operator('/')" class="operator">/</button>
+            
+            <button onclick="Liczba('4')">4</button>
+            <button onclick="Liczba('5')">5</button>
+            <button onclick="Liczba('6')">6</button>
+            <button onclick="Operator('*')" class="operator">*</button>
+            
+            <button onclick="Liczba('1')">1</button>
+            <button onclick="Liczba('2')">2</button>
+            <button onclick="Liczba('3')">3</button>
+            <button onclick="Operator('-')" class="operator">-</button>
+            
+            <button onclick="Liczba('0')">0</button>
+            <button onclick="Kropka('.')">.</button>
+            <button class="rownasie" onclick="Oblicz()">=</button>
+            <button onclick="Operator('+')" class="operator">+</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        let dzialanie = '';
+        let dzialanieWtle = '';
+
+        function Liczba(liczba) {
+            const liczby = dzialanie.split(/[+\*/-]/);
+            const ostatniaLiczba = liczby[liczby.length - 1];
+
+            if (ostatniaLiczba === '0') {
+                dzialanie = dzialanie.slice(0, -1) + liczba;
+                dzialanieWtle = dzialanieWtle.slice(0, -1) + liczba;
+            } 
+            else {
+                dzialanie += liczba;
+                dzialanieWtle += liczba;
+            }
+            display.value = dzialanie;
+        }
+
+        function Operator(operator) {
+            if (dzialanie === '') {
+                if (operator === '-') {
+                    dzialanie += operator;
+                    dzialanieWtle += operator;
+                    display.value = dzialanie;
+                }
+                return;
+            }
+    
+            const ostatniZnak = dzialanie.slice(-1);
+            if (ostatniZnak === '.') return;
+
+            if (['+', '-', '*', '/'].includes(ostatniZnak)) {
+                if (dzialanie === '-') {
+                    if (operator === '-') return;
+                    dzialanie = '';
+                    dzialanieWtle = '';
+                    display.value = '';
+                    return;
+                }
+                dzialanie = dzialanie.slice(0, -1) + operator;
+                dzialanieWtle = dzialanieWtle.slice(0, -1) + operator;
+                display.value = dzialanie;
+                return;
+            }
+
+            dzialanie += operator;
+            dzialanieWtle += operator;
+            display.value = dzialanie;
+        }
+
+			function Kropka() {
+            if (dzialanie === '') {
+                dzialanie += '0.';
+                dzialanieWtle += '0.';
+                display.value = dzialanie;
+                return;
+            }
+
+            const ostatniZnak = dzialanie.slice(-1);
+            if (['+', '-', '*', '/'].includes(ostatniZnak)) {
+                dzialanie += '0.';
+                dzialanieWtle += '0.';
+                display.value = dzialanie;
+                return;
+            }
+
+            const liczby = dzialanie.split(/[+\*/-]/);
+            const ostatniaLiczba = liczby[liczby.length - 1];
+
+            if (ostatniaLiczba.includes('.')) return;
+
+            dzialanie += '.';
+            dzialanieWtle += '.';
+            display.value = dzialanie;
+        }
+
+        function Wyczysc() {
+            dzialanie = '';
+            dzialanieWtle = '';
+            display.value = '';
+        }
+
+        function Oblicz() {
+            if (dzialanie === '') return;
+
+            if (/\/0(?!\d)(?!\.)/.test(dzialanie)) {
+                display.value = 'Error';
+                dzialanie = ''; 
+                dzialanieWtle = '';
+                return;
+            }
+
+            try {
+                const wynikRaw = eval(dzialanieWtle);
+                
+                if (wynikRaw === Infinity || wynikRaw === -Infinity || isNaN(wynikRaw)) {
+                    display.value = 'Error';
+                    dzialanie = '';
+                    dzialanieWtle = '';
+                } else {
+                    const wynikIdealny = parseFloat(wynikRaw.toPrecision(12));
+                    dzialanie = Number(wynikIdealny.toFixed(8)).toString();
+                    dzialanieWtle = wynikIdealny.toString();
+                    display.value = dzialanie;
+                }
+            } catch (error) {
+                display.value = 'Error';
+                dzialanie = '';
+                dzialanieWtle = '';
+            }
+        }
+    </script>
+
+</body>
+</html>
